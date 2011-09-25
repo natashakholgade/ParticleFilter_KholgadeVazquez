@@ -1,3 +1,13 @@
-heyi!
+File schema:
 
-how are you?
+ParticleFilter_KholgadeVazquez
+ParticleFilter_KholgadeVazquez/data
+ParticleFilter_KholgadeVazquez/data/instruct.txt
+ParticleFilter_KholgadeVazquez/data/log/robotdata1.log
+ParticleFilter_KholgadeVazquez/data/log/robotdata2.log
+ParticleFilter_KholgadeVazquez/data/log/robotdata3.log
+ParticleFilter_KholgadeVazquez/data/log/robotdata4.log
+ParticleFilter_KholgadeVazquez/data/log/robotdata5.log
+ParticleFilter_KholgadeVazquez/data/map
+ParticleFilter_KholgadeVazquez/data/map/wean.dat
+
