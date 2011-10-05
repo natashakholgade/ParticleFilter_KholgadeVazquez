@@ -1,4 +1,4 @@
-% loadLogFile
+% Load log file
 % [RobotPose, LaserReadings] = loadLogFile(logFile)
 %   logFile               - path to robot log file
 %   RobotPose       4xN   - odometry readings
