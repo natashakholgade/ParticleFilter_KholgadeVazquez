@@ -34,8 +34,8 @@ dispL = [cos(theta)*offset; sin(theta)*offset];    % laser displacement
 positionL = particles(1:2,:) + dispL;              % 2xN laser position (world)
 
 beams = (0:stride:179)*pi/180.0 - pi/2;            % beam angles (robot)                        % number of measurements
-B = size(beams,2);                                 % number of beams to consider
-thetaB = repmat(theta,B,1) + repmat(beams',1,3);   % BxN beam angles (world)
+B = size(laser,2);                                 % number of beams to consider
+thetaB = repmat(theta,B,1) + repmat(beams',1,N);   % BxN beam angles (world)
 
 dispB = cat(3,cos(thetaB),sin(thetaB)).*...        % BxNx2 beam x,y displacement
     repmat(laser', [1 N 2]); 

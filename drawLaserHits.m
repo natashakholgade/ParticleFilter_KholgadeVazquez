@@ -11,6 +11,7 @@ theta = particle(3);
 drawRobot(x, y, theta, offset);
 
 laserPos = [cos(theta)*offset + x; sin(theta)*offset + y];
+hold on;
 for h=1:size(hits,1)
    plot([laserPos(1); hits(h,1)], [laserPos(2); hits(h,2)]);
 end
