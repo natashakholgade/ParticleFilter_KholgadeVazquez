@@ -3,7 +3,7 @@
 %   particles       3xN           - particles in the world
 %   laser           1xL           - laser readings (in cm)
 %   stride                        - laser array stride (> 0)
-%   offset                        - laser (forward) offset 
+%   offset                        - laser (forward) offset
 %   hits            BxNx2         - laser x,y position (in cm)
 % where N = # particles and B = 1 + ((L-1)/stride)
 %
@@ -19,7 +19,7 @@
 % B = 1 + ((L-1)/stride). A stride of 1 means that all measurements must be
 % considered; a stride of 2 means that every other measurement must be
 % considered.. A stride greater than 1 is useful when some beams want to be 
-% ignored from the measurement array.
+% ignored from the measurement array. 
 %
 % NOTES: A particle state consists of 3 variables: [x, y, theta].
 %        The angle theta is assumed to come in radians, and x, y in cm.

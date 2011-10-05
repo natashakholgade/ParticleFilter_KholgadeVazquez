@@ -4,11 +4,13 @@
 %   M       WxH   - map with occupancy probabilities
 %   laser   1xL   - laser readings
 %   stride        - laser array stride
+%   minT          - min allowed laser range
+%   maxT          - max allowed laser range
 %   W       Nx1   - particles' weight
 %
 % NOTE: A particle state consists of 3 variables: [x, y, theta].
 %       The angle theta is assumed to come in radians.
-function W = computeWeights(particles, map, laser)
+function W = computeWeights(particles, map, laser, stride, minT, maxT)
 
 N = size(X, 2);                                    % number of particles
 
@@ -17,8 +19,8 @@ N = size(X, 2);                                    % number of particles
 % NOTE: The laser on the robot is approximately 25 cm offset forward from 
 % the true center of the robot.
 % ----------------------------------------------------------------------- %
-hits = beamHit(X, L, 1, 25)
-
+hits = beamHitThresholded(particles, laser, minT, maxT, ...
+                              stride, laserOffset);
 
 
 

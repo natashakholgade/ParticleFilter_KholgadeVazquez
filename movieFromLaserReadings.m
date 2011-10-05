@@ -2,7 +2,9 @@
 % movieFromLaserReadings(movieName, laserReadings)
 %   movie                   - path of avi file to be saved
 %   laserReadings   Nx187   - laser logs (from loadLogFile)
-function movieFromLaserReadings(movie, laserReadings)
+%   minT                    - min allowed laser reading 
+%   maxT                    - max allowed laser reading
+function movieFromLaserReadings(movie, laserReadings, minT, maxT)
 
 N = size(laserReadings, 1);     % number of measurements
 laserOffset = 25;               % laser (forward) offset wrt the robot center
@@ -24,8 +26,8 @@ for frame = 1:N
     % get sensor measurements
     laser = laserReadings(frame, 7:186);
     % get the laser hits
-    hits = beamHit(particles, laser, ...
-                    stride, laserOffset);
+    hits = beamHitThresholded(particles, laser, minT, maxT, ...
+                              stride, laserOffset);
     % draw 
     drawLaserHits(particles', laserOffset, hits);
     
