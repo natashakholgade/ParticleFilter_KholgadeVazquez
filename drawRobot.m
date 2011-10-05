@@ -14,12 +14,12 @@ plot(robot(1,:), robot(2,:));
 plot([x, cos(theta-pi/4)*radius], [y, sin(theta-pi/4)*radius]);
 plot([x, cos(theta+pi/4)*radius], [y, sin(theta+pi/4)*radius]);
 
-% Construct array of circular points
+% Construct matrix of circular points
 % c = circle(center, radius)
 %   center  1x2 - [x,y] center position
 %   radius      - circle radius
 %   n           - number of points of the array to return
-%   c       2xn - array of circular points
+%   c       2xn - matrix of circular points
 function c = circle(center, radius, n)
 angles = linspace(0,2*pi,n);
 [x, y] = pol2cart(angles, radius);
