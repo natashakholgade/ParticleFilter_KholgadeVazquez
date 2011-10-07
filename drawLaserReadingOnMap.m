@@ -2,7 +2,7 @@
 %   laserlog        1x187   - one laser log (as output by loadLogFile)
 %   stride                  - laser stride (1 = draw all beams)
 %   offset                  - laser (forward) offset from robot's center
-%   map             WxH     - occupancy map
+%   map             HxW     - occupancy map
 %   resolution              - map resolution
 %   drawmap                 - draw map? Either 1 or 0
 function drawLaserReadingOnMap(laserlog, stride, offset, map, resolution, drawmap)

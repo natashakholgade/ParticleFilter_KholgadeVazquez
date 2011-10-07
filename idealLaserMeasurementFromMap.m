@@ -2,7 +2,7 @@
 % laser = idealLaserMeasurementFromMap(particle, map, resolution)
 %   particle    3x1   - particle [x, y, theta]
 %   offset            - laser (forward) offset from the center of the robot
-%   map         WxH   - map
+%   map         HxW   - map
 %   resolution        - map resolution (in cm)
 %   hitThresh         - occupancy threshold for hit detection (e.g., 0.8)
 %   maxRange          - maximum laser range

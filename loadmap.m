@@ -1,7 +1,7 @@
 % Load occupancy map
 % [specs,D]=loadmap(mapfilename)
 %   specs       - map specifications
-%   D       WxH - map matrix
+%   D       HxW - map matrix
 function [specs,D]=loadmap(mapfilename)
 
 fid=fopen(mapfilename);

@@ -1,9 +1,9 @@
 % Computes the normalized weight for all particles
 % W = computeWeights(X, M, L)
 %   particles 3xN   - particles in world coordinates (N = # particles)
-%   map       WxH   - map with occupancy probabilities
+%   map       HxW   - map with occupancy probabilities
 %   resolution      - map resolution (the space each cell represents in cm)
-%   laser     1xL   - laser readings
+%   laser     1xL   - laser readings (usually L = 180)
 %   stride          - laser array stride
 %   minT            - min allowed laser range
 %   maxT            - max allowed laser range
@@ -24,7 +24,7 @@
 function W = computeWeights(particles, map, resolution, laser, stride, ...
                             minT, maxT, method)
 
-N = size(X, 2);                                    % number of particles
+N = size(particles, 2);                                    % number of particles
 
 % ----------------------------------------------------------------------- %
 % Where do the laser beam measurements fall in the world?
