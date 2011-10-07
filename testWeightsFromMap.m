@@ -22,6 +22,7 @@ meanErr = zeros(N);
 stdErr = zeros(N);
 
 weights = zeros(N);
+stride = 4;
 
 % Build fake measurement
 for p = 1:N
@@ -32,9 +33,10 @@ for p = 1:N
     laserHits(:,p,:) = hits';
 
     % use laser log with all particles
-    hits = beamHit(particles, laserLogs(p,7:186), 1, offset);
+    hits = beamHit(particles, laserLogs(p,7:186), stride, offset);
     % compute hit error
-    err = sqrt(sum((hits - laserHits).^2,3));
+    beamsDeg = 0:stride:179;
+    err = sqrt(sum((hits - laserHits(beamsDeg+1,:,:)).^2,3));
     meanErr(p,:) = mean(err);
     stdErr(p,:) = std(err);
     
@@ -54,5 +56,5 @@ display(weights);
 % Plot hits
 vismap(map); hold on;
 for p = 1:N
-    drawLaserReadingOnMap(laserLogs(p,:), 1, offset, map, resolution, 0);
+    drawLaserReadingOnMap(laserLogs(p,:), stride, offset, map, resolution, 0);
 end
