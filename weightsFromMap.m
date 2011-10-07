@@ -1,30 +1,38 @@
 % Compute particles' weights using the (simple) map-based sensor model
 % W = weightsFromMap(hits, map)
 %   hits            BxNx2 - laser x,y position (in cm)
-%   map             WxH   - map with occupancy probabilities
+%   map             HxW   - map with occupancy probabilities
 %   resolution            - map resolution (in cm)
 %
-% Computes P(x|z) directly from the occupancy map.
+% Computes P(x|z) directly from the occupancy map. 
 function W = weightsFromMap(hits, map, resolution)
 
 mapSize = size(map);                        % map size
-N = size(hits,2);                           % number of particles
-B = size(hits,1);                           % number of beans
-W = zeros(N,1);                             % alloc space for weights
 
-hits = floor(hits/resolution);              % convert positions to cells
-hitsCell = mat2cell(hits,B,ones(1,N),2);    % group cells by particle
+hits = floor(hits./resolution);             % convert positions to cells
+invalidHits = isnan(hits);                  % 1 for invalid hits 
+hits(invalidHits) = 1;                      % replace NaN by 1 so sub2ind works
 
-for p=1:N
-    hitsXY = squeeze(hitsCell{p});          % x,y cell index
-    hitsXY = [hitsXY(~isnan(hitsXY(:,1))), ... % but discard NaN results
-              hitsXY(~isnan(hitsXY(:,2)))];
-    
-    % compute weight by multiplying cells' occupancy prob
-    % (sum a little number to all cells, so that w > 0 when one cell has
-    % occupancy = 0)
-    W(p) = prod(map(sub2ind(mapSize, hitsXY(:,1), hitsXY(:,2))) + 0.00001);
-end
+% Fix beams that fall outside map
+x = hits(:,:,1);
+y = hits(:,:,2);
+x(x < 1) = 1; x(x > mapSize(2)) = mapSize(2);
+y(y < 1) = 1; y(y > mapSize(1)) = mapSize(1);
+hits(:,:,1) = x; hits(:,:,2) = y;
 
-% normalize weights
-W = W/sum(W);
+% Get probabilities from occupancy map
+hitProb = map(sub2ind(mapSize, hits(:,:,2), hits(:,:,1)));
+
+% Ignore invalid beams and fix 0s
+% (sum a little number to cells with 0 prob so that the weight is not zero 
+% due to few measurement/map inconsistencies)
+epsilon = 0.0001;
+hitProb(invalidHits(:,:,1)) = 1;
+hitProb(hitProb == 2) = epsilon;
+hitProb(hitProb < epsilon) = epsilon;
+
+% Compute joint prob from all beams per particle 
+W = prod(hitProb);
+
+% Normalize weights
+W = W./sum(W);

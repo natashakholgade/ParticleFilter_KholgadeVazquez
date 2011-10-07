@@ -16,7 +16,7 @@ m=C1{end};
 
 C2=textscan(fid,'%f');
 D=C2{1};
-D=reshape(D,n,m);
+D=1 - reshape(D,n,m);
 
 fclose(fid);
 

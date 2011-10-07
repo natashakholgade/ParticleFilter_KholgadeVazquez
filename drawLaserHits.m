@@ -12,17 +12,24 @@
 % NOTE: NaN hit positions are not drawn.
 function drawLaserHits(particle, offset, hits, scaling)
 
+% scale everything first
 x = particle(1)*scaling;
 y = particle(2)*scaling;
 offset = offset*scaling;
+hits = hits.*scaling;
+
+% get orientation
 theta = particle(3);
+
+% draw robot
 drawRobot(x, y, theta, offset);
 
+% draw laser beams
 laserPos = [cos(theta)*offset + x; sin(theta)*offset + y];
 hold on;
 for h=1:size(hits,1)
    if ~isnan(hits(h,1))
-    plot([laserPos(1); hits(h,1)*scaling], ...
-         [laserPos(2); hits(h,2)*scaling],'r-');
+    plot([laserPos(1); hits(h,1)], ...
+         [laserPos(2); hits(h,2)],'r-');
    end
 end
