@@ -3,6 +3,7 @@
 %   hits            BxNx2 - laser x,y position (in cm)
 %   map             HxW   - map with occupancy probabilities
 %   resolution            - map resolution (in cm)
+%   W               Nx1   - normalized weights for the particles
 %
 % Computes P(x|z) directly from the occupancy map. 
 function W = weightsFromMap(hits, map, resolution)
@@ -35,4 +36,4 @@ hitProb(hitProb < epsilon) = epsilon;
 W = prod(hitProb);
 
 % Normalize weights
-W = W./sum(W);
+W = W'./sum(W);
