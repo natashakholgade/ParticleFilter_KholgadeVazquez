@@ -11,6 +11,8 @@ function p=probMotionModel(x,u,xprev,alphas)
 %         (x_tminus1,y_tminus1,theta_tminus1)
 % alphas     : 4x1 vector of parameters that control probability distribution
 
+u=repmat(u,1,size(x,2));
+
 uprev=u(1:3,:);
 u=u(4:6,:);
 

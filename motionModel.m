@@ -6,9 +6,11 @@ function x=motionModel(xprev,u,alphas)
 %
 % xv_tminus1 : 3xN matrix with each column being
 %         (x_tminus1,y_tminus1,theta_tminus1)
-% uv_t       : 6xN matrix with each column being
+% uv_t       : 6x1 matrix with the column being
 %         (x_tminus1_odo,y_tminus1_odo,theta_tminus1_odo,x_t_odo,y_t_odo,theta_t_odo)
 % alphas     : 4x1 vector of parameters that control probability distribution
+
+u=repmat(u,1,size(xprev,2));
 
 uprev=u(1:3,:);
 u=u(4:6,:);
