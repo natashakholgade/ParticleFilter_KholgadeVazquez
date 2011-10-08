@@ -1,4 +1,4 @@
-function x=motionModel(xprev,u,alphas)
+function x=motionModel(xprev,u,alphas,w,h)
 
 % x_vt=motionModel(x_vtminus1,u_vt,alphas)
 %
@@ -27,5 +27,8 @@ x=zeros(3,size(xprev,2));
 x(1,:)=xprev(1,:)+delhattrans.*cos(xprev(3,:)+delhatrot1);
 x(2,:)=xprev(2,:)+delhattrans.*sin(xprev(3,:)+delhatrot1);
 x(3,:)=xprev(3,:)+delhatrot1+delhatrot2;
+
+x(1,x(1,:)<1)=1;  x(1,x(1,:)>w)=w;
+x(2,x(2,:)<1)=1; x(2,x(2,:)>h)=h;
 
 end
