@@ -21,17 +21,12 @@ set(gca,'nextplot','replacechildren');
 % render one frame per measurement
 for frame = 1:N
     
-    % get the orientation of the particle and center it at [0, 0]
-    particles = [0; 0; laserReadings(frame,3)];  
-    % get sensor measurements
-    laser = laserReadings(frame, 7:186);
-    % get the laser hits
-    hits = beamHitThresholded(particles, laser, minT, maxT, ...
-                              stride, laserOffset);
-    % draw 
-    drawLaserHits(particles', laserOffset, hits);
-    
+    % draw frame
+    drawLaserReading(laserReadings(frame,:), minT, maxT, ...
+                     stride, laserOffset);
+    % save frame
     mov(frame) = getframe(gcf);
+    % clear figure
     clf;
     
 end

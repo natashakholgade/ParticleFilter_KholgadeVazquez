@@ -10,7 +10,7 @@
 % where N = # particles and B = 1 + ((L-1)/stride)
 %
 % If a range measurement is outside [minT, maxT], then NaN is returned for
-% the [x,y] hit coordinate. See beamHit() for an explanation about all
+% the [x,y] hit coordinate. See beamHit() for a more complete explanation of 
 % the other parameters.
 function hits = beamHitThresholded(particles, laser, minT, maxT, ...
                                     stride, offset)

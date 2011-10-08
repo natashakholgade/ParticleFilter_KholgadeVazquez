@@ -1,3 +1,7 @@
+% Load occupancy map
+% [specs,D]=loadmap(mapfilename)
+%   specs       - map specifications
+%   D       HxW - map matrix
 function [specs,D]=loadmap(mapfilename)
 
 fid=fopen(mapfilename);
@@ -12,7 +16,7 @@ m=C1{end};
 
 C2=textscan(fid,'%f');
 D=C2{1};
-D=reshape(D,n,m);
+D=1 - reshape(D,n,m);
 
 fclose(fid);
 
