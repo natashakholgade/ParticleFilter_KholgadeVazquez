@@ -13,8 +13,8 @@ function drawParticlesOnMap(map, resolution, particles)
 vismap(map); hold on;
 
 % translate particles' position to map cells
-particles(1,:) = particles(1,:)./resolution;
-particles(2,:) = particles(2,:)./resolution;
+particles(1,:) = floor(particles(1,:)./resolution);
+particles(2,:) = floor(particles(2,:)./resolution);
 
 % draw particles
-scatter(particles(1,:), particles(2,:), 'r');
+scatter(particles(1,:), particles(2,:), 1,'r');

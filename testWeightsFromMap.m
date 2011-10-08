@@ -11,7 +11,7 @@
 particles = [ ...
     6440 4360;  ... % x
     5900 3980;  ... % y
-    0    -pi/4  ... % theta
+    0    0  ... % theta
     ];
 N = size(particles,2);
 
@@ -50,7 +50,7 @@ fprintf('Std: ');
 display(stdErr);
 
 % Compute weight
-fprintf('Weights: ', w);
+fprintf('Weights: ');
 display(weights);
 
 % Plot hits

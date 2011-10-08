@@ -5,6 +5,6 @@
 function visLaserDistribution(measurements, xrange, color)
 
 [L, B] = size(measurements);
-measurements = reshape(measurements,1,L*B);
+measurements = reshape(measurements',1,L*B);
 
 scatter(xrange(1):xrange(2), measurements, 1, color);

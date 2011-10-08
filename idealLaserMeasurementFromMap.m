@@ -45,7 +45,7 @@ c = cos(beamAngles);                                % cosines
 s = sin(beamAngles);                                % sines
 xmax = maxRange.*c';                                % X_2 for all beams
 ymax = maxRange.*s';                                % Y_2 for all beams
-step = resolution/maxRange;                         % line step (1/(maxRange/resolution))
+step = resolution/(maxRange*2);                     % line step (1/(maxRange/(resolution/2)))
 x = (xmax*(0:step:1-step/2))' + laserPosition(1);   % x coords per beam (cm)
 y = (ymax*(0:step:1-step/2))' + laserPosition(2);   % y coords per beam (cm) 
 

@@ -23,7 +23,7 @@ resolution = single(specs(3));
 particle = [x y theta]';
 offset = 25;
 laserPos = [cos(theta)*offset+x sin(theta)*offset+y theta];
-hitThreshold = 0.8; % < 1
+hitThreshold = 0.9; % < 1 and > 0
 maxRange = 8000;
 [laser, hits] = idealLaserMeasurementFromMap(particle, offset, map, resolution, ...
                                      hitThreshold, maxRange);

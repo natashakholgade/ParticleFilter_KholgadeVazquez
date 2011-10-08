@@ -1,5 +1,5 @@
 % Computes the normalized weight for all particles
-% W = computeWeights(X, M, L)
+% W = computeWeights(particles, map, resolution, laser, stride, minT, maxT, method)
 %   particles 3xN   - particles in world coordinates (N = # particles)
 %   map       HxW   - map with occupancy probabilities
 %   resolution      - map resolution (the space each cell represents in cm)
