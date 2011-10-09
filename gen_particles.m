@@ -5,7 +5,7 @@
 function particles = gen_particles(map, N)
 
 %-1 = 2, +1 =0
-[s,map] = loadmap(map);
+%[s,map] = loadmap(map);
 
 % Generate possible occupancy map
 a=1-map;   %temp img
@@ -20,6 +20,7 @@ h=size(hx,1);      %total hallway points
 initIndices=round(h*rand(N,1));
 size(hx(initIndices));
 particles=[hx(initIndices) hy(initIndices) 2*pi*rand(N,1)];
+
 
 % Plot Images
 d=0.04; %distance between images
