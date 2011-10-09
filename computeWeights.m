@@ -32,16 +32,22 @@ N = size(particles, 2);                                    % number of particles
 % the true center of the robot.
 % ----------------------------------------------------------------------- %
 offset = 25;                                                % laser offset
-hits = beamHitThresholded(particles, laser, minT, maxT, ... % hits
-                          stride, offset);
                           
 if method == 0                                  % simple map-based method
    
+    hits = beamHitThresholded(particles, laser, minT, maxT, ... % hits
+                          stride, offset);
     W = weightsFromMap(hits, map, resolution);
     
-elseif method == 1                              % ray casting method
+elseif method == 1                              % simple counting map-based method
     
-    display('TODO! Method has not been implemented yet...');
+    hits = beamHitThresholded(particles, laser, minT, maxT, ... % hits
+                          stride, offset);
+    W = weightsCountingFromMap(hits, map, resolution);
+    
+elseif method == 2                              % ray-casting method
+
+    W = weightsFromRayCasting(particles, laser, stride, offset, map, resolution, 1);
     
 else                                            % undefined method
     error('Undefined weigthing method. Method should be either 0 or 1.')

@@ -10,7 +10,7 @@ map=smoothMap(map,1,[1*4+1,1*4+1]);
 X=X*res;
 W=1/N*ones(N,1); % initialize the weights to all 1/(numparticles)
 
-skip=5; 
+skip=1; 
 skipcount=0;
 
 done=false;
@@ -41,15 +41,16 @@ while ~done
                 uprev=u;
             elseif (s(1)=='L') 
                 L=extractLaserReadings(s); % if we have laser info, get the laser readings
-                W1=computeWeights(X,map,res,L,stride,minT,maxT,0); % compute weights for this step given the readings
+                W1=computeWeights(X,map,res,L,stride,minT,maxT,2); % compute weights for this step given the readings
                 W=exp(log(W1)+log(W)); % update weights by multiplying with weights from this step
                 W=W/sum(W);
                 %figure(2); plot(W);
                 %W1
+
+                
                 %W'
             end
             count=count+1; % update the current count
-            count
             if mod(count,resamplestep)==0 % every so often, resample
                 
                 [X,W]=resample(X',W);
