@@ -17,14 +17,17 @@ function W = weightsFromRayCasting(particles, laser, stride, offset, map, resolu
 
 N = size(particles,2);
 
-hitThreshold = 0.8;
-[idealLaser, ~] = ...
-    idealLaserMeasurementFromMap(particles, stride, offset, map, ...
-                                 resolution, hitThreshold, 8000);
-                             
-probs = normpdf(repmat(laser(1:stride:length(laser)),N,1)-idealLaser,0,beamSigma);
-W = prod(probs,2)+0.000001;
-W = W/sum(W);
+% hitThreshold = 0.8;
+% [idealLaser, ~] = ...
+%     idealLaserMeasurementFromMap(particles, stride, offset, map, ...
+%                                  resolution, hitThreshold, 8000);
+
+idealLaser = raycast(particles, map, (0:stride:179)*pi/180);
+diffLaser = repmat(laser(1:stride:length(laser)),N,1)-idealLaser;
+probs = normpdf(diffLaser/resolution,0,beamSigma);
+%W = exp(sum(log(probs),2));
+W = exp(sum(probs,2));
+%W = W/sum(W);
 
                              
 

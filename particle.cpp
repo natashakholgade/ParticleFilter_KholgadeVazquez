@@ -6,8 +6,8 @@ using namespace std;
 const float offset = 25.0;
 const float maxRange = 8000;
 const float resolution = 10;
-const float step = resolution/2.0;
-const float hitThreshold = 0.9;
+const float step = resolution/3.0;
+const float hitThreshold = 0.95;
 
 enum STATE
 {
@@ -41,7 +41,9 @@ ParticleSet::getIdealLaserMeasurements(const double* map, int width, int height,
         position = Vector2D(ptr[X], ptr[Y]);
         theta = ptr[THETA];
         laserPosition = position + Vector2D(cos(theta),sin(theta))*offset;
-                
+            
+//         mexPrintf("particle(%d) = [%f %f %f]", p, position.x, position.y, theta);
+        
 //         mexPrintf("laser = [%f, %f, %f] | map = %e\n", 
 //                   laserPosition.x, laserPosition.y, theta,
 //                   map[int(round(laserPosition.x/resolution)*height + 
@@ -49,7 +51,7 @@ ParticleSet::getIdealLaserMeasurements(const double* map, int width, int height,
         
         for (int b=0; b<beams; b++)
         {
-            beamAngle = theta + angles[b] - M_PI/2;
+            beamAngle = theta - angles[b] + M_PI/2;
             orientation = Vector2D(cos(beamAngle),sin(beamAngle));
 //             beamEnd = laserPosition + 
 //                         Vector2D(cos(beamAngle),sin(beamAngle))*maxRange;
@@ -86,12 +88,13 @@ ParticleSet::getIdealLaserMeasurements(const double* map, int width, int height,
             
             diff = beamEnd - laserPosition;
             depth = diff.norm();
-            output[n*(beams - 1 - b) + p] = depth;
+            output[n*b + p] = depth;
+            
+//             mexPrintf("%d) p=%d/%d (x=[%f %f %f]) b=%d (beam=%f) depth = %f\n", b*(p+1), p, n, position.x, position.y, theta, b, beamAngle, depth);
+                
             
         }
-        
-        
-                
+               
         ptr = nextParticlePtr(ptr);
     }
     

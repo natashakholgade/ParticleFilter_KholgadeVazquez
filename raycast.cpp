@@ -32,7 +32,7 @@ void mexFunction(int nlhs, mxArray *plhs[ ], int nrhs, const mxArray *prhs[ ])
     mwSize B = mxGetN(prhs[2]);            // number of beams
     double *angles = mxGetPr(prhs[2]);     // pointer to map data
     
-    plhs[0] = mxCreateDoubleMatrix(N,B, mxREAL);
+    plhs[0] = mxCreateDoubleMatrix(N, B, mxREAL);
     double *idealLaser = mxGetPr(plhs[0]);
     
     if (!particleSet.getIdealLaserMeasurements(map, W, H, angles, 

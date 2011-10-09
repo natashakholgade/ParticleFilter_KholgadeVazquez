@@ -9,10 +9,12 @@ M=size(particles,1);    %number of possible entries
 particleIndices = zeros(1,M);
 
 % Create M indices using weights to create continuous PDF
-weightCpdf = cumsum(weights./sum(weights));
+% weightCpdf = cumsum(weights./sum(weights));
+weightCpdf = cumsum(weights);
+
 
 %disp('Beginning resampling...');
-tic
+%tic
 
 % Generate rand for starting resampling position
 u = rand();
@@ -29,7 +31,7 @@ for m = 2:M
     end
 end
 
-toc;
+%toc;
 %disp('Resampling complete!');
 
 % Create new particles with stored indices
