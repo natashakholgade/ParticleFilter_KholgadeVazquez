@@ -7,7 +7,7 @@ const float offset = 25.0;
 const float maxRange = 8000;
 const float resolution = 10;
 const float step = resolution/3.0;
-const float hitThreshold = 0.95;
+const float hitThreshold = 0.9;
 
 enum STATE
 {

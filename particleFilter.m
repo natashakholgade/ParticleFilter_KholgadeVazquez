@@ -74,7 +74,7 @@ while ~done
 %             if mod(count,resamplestep)==0 % every so often, resample
 %             tmp = 1/sum(W.^2)
 %             if tmp < 20
-            if (stdW > 0.05)
+            if (stdW > 0.04)
                 [X,W]=resample(X',W);
                 X=X';
             end

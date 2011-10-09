@@ -20,7 +20,8 @@ h=size(hx,1);      %total hallway points
 % initIndices=round(h*rand(N,1));
 initIndices=mod(round(2*h*rand(N,1)),h)+1;
 size(hx(initIndices));
-particles=[hx(initIndices) hy(initIndices) 2*pi*rand(N,1)];
+% particles=[hx(initIndices) hy(initIndices) 2*pi*rand(N,1)];
+particles=[hx(initIndices) hy(initIndices) mod(round(90*rand(N,1))+45,90)*2*pi/90];
 
 
 % Plot Images
