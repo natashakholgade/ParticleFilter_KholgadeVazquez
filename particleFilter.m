@@ -56,7 +56,7 @@ while ~done
                 W=W./sumW;
             end
              
-            stdW = std(W*100)
+            stdW = std(W*100);
 %             fprintf('sum(W) = %e, std(W) = %e\n', sumW, stdW);
             if (isnan(sumW) || isnan(stdW) )
                 fprintf('HELP!');
