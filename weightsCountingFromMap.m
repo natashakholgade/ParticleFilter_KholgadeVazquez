@@ -1,12 +1,12 @@
 % Compute particles' weights using the (simple) map-based sensor model
-% W = weightsFromMap(hits, map, resolution)
+% W = weightsFromMap(hits, map)
 %   hits            BxNx2 - laser x,y position (in cm)
 %   map             HxW   - map with occupancy probabilities
 %   resolution            - map resolution (in cm)
 %   W               Nx1   - normalized weights for the particles
 %
 % Computes P(x|z) directly from the occupancy map. 
-function W = weightsFromMap(hits, map, resolution)
+function W = weightsCountingFromMap(hits, map, resolution)
 
 mapSize = size(map);                        % map size
 
@@ -36,7 +36,7 @@ hitProb(hitProb < epsilon) = epsilon;
 
 % Compute joint prob from all beams per particle 
 % W = prod(hitProb);
-W = sum(hitProb);
+W = sum(hitProb > 0.8)+epsilon;
 
 % Normalize weights
 W = W'./sum(W);

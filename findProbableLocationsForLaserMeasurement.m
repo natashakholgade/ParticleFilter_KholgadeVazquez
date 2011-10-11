@@ -13,9 +13,8 @@ function P = findProbableLocationsForLaserMeasurement(laser, map, ...
 
 % compute state orientations
 orientationStep = 2*pi/nAngles;
-orientations = 0:orientationStep:2*pi-orientationStep/2.0
+orientations = 0:orientationStep:2*pi-orientationStep/2.0;
 assert(size(orientations,2) == nAngles);
-pause
 
 % find free spots in the map
 [i,j] = find(map == 0);
