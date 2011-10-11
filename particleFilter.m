@@ -1,4 +1,4 @@
-function [X,W]=particleFilter(logfile,map,N,alphas,res,stride,minT,maxT,resamplestep)
+function [X,W]=particleFilter(logfile,map,N,alphas,res,stride,minT,maxT,skip,dirname)
 
 fid=fopen(logfile);
 
@@ -10,7 +10,14 @@ X=gen_particles(map,N)'; % initialize the particles
 X=X*res;
 W=1/N*ones(N,1); % initialize the weights to all 1/(numparticles)
 
+if ~exist('skip','var')
 skip=1; 
+end
+
+if ~exist(dirname,'dir')
+    mkdir(dirname);
+end
+
 skipcount=0;
 
 sumW = 1;
@@ -69,6 +76,7 @@ while ~done
             hold off;
             title(sprintf('Frame %d', count));
             drawnow;
+            saveas(gca,sprintf('%s/%04d.png',dirname,count));
                 
             count=count+1; % update the current count
 %             if mod(count,resamplestep)==0 % every so often, resample
