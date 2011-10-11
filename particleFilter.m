@@ -24,7 +24,12 @@ end
 skipcount=0;
 
 sumW = 1;
-drawingMap = map.*0.3;
+drawingMap = map;
+drawingMap(map == 2) = 0;
+drawingMap = drawingMap.*0.2;
+
+
+particlesCovariance = cov(X(1:2,:)');
 
 done=false;
 while ~done
@@ -73,25 +78,29 @@ while ~done
                 display(sumW);
                 display(stdW);
             end
+        
             
-            if mod(count,6)==0 
+            if mod(count,10)==0 
                 imshow(drawingMap); hold on;
-            scatter(X(1,:)/res,X(2,:)/res,3,'r'); 
-            
-            Xmean=X*W;
-            
-            hits = beamHit(Xmean, L, stride, 25);
-% convert hits from Bx1x2 to Bx2
-hits = squeeze(hits);
-% draw 
-%if drawmap; vismap(map); end
-%hold on;
-drawLaserHits(Xmean, 25, hits, 1/res);
-            
-            hold off;
-            title(sprintf('Frame %d', count));
-            drawnow;
-            saveas(gca,sprintf('%s/%04d.png',dirname,count));
+                scatter(X(1,:)/res,X(2,:)/res,2.5,'b'); 
+
+
+                % check for particles' convergence and draw robot
+                particlesCovariance = cov(X(1:2,:)'./10);
+                if (max(diag(particlesCovariance)) < 1000)
+
+                    Xmean=X*W;
+                    hits = beamHit(Xmean, L, stride, 25);
+                    % convert hits from Bx1x2 to Bx2
+                    hits = squeeze(hits);
+                    drawLaserHits(Xmean, 25, hits, 1/res);
+
+                end
+
+                hold off;
+                title(sprintf('Frame %d', count));
+                drawnow;
+                saveas(gca,sprintf('%s/%04d.png',dirname,count));
             
             end
                 
