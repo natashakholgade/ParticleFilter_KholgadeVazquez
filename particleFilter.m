@@ -89,6 +89,7 @@ drawLaserHits(Xmean, 25, hits, 1/res);
             title(sprintf('Frame %d', count));
             drawnow;
             saveas(gca,sprintf('%s/%04d.png',dirname,count));
+            
             end
                 
             count=count+1; % update the current count

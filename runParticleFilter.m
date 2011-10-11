@@ -28,3 +28,5 @@
 % [particles2_2,weights2_2]=particleFilter('data/log/robotdata2.log','data/map/wean.dat',2000,[0.04,0.04,0.04,0.04],10,2,0,8000,1,'secondlog_manyparticles_highnoise');
 % [particles2_3,weights2_3]=particleFilter('data/log/robotdata2.log','data/map/wean.dat',2000,[0.01,0.01,0.01,0.01],10,2,0,8000,5,'secondlog_manyparticles_lownoise_skip5');
 % [particles2_4,weights2_4]=particleFilter('data/log/robotdata2.log','data/map/wean.dat',200,[0.04,0.04,0.04,0.04],10,2,0,8000,5,'secondlog_fewparticles_highnoise_skip5');
+
+
