@@ -12,7 +12,7 @@ particleIndices = zeros(1,M);
 weightCpdf = cumsum(weights./sum(weights));
 
 %disp('Beginning resampling...');
-tic
+%tic
 
 % Generate rand for starting resampling position
 u = rand();
@@ -29,7 +29,7 @@ for m = 2:M
     end
 end
 
-toc;
+%toc;
 %disp('Resampling complete!');
 
 % Create new particles with stored indices
