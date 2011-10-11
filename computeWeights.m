@@ -47,7 +47,7 @@ elseif method == 1                              % simple counting map-based meth
     
 elseif method == 2                              % ray-casting method
 
-    W = weightsFromRayCasting(particles, laser, stride, offset, map, resolution, 20, minT, maxT);
+    W = weightsFromRayCasting(particles, laser, stride, offset, map, resolution, 15, minT, maxT);
     
 else                                            % undefined method
     error('Undefined weigthing method. Method should be either 0 or 1.')

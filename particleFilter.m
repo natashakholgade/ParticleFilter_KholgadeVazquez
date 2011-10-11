@@ -7,7 +7,10 @@ count=0;
 [~,map]=loadmap(map);
 X=gen_particles(map,N)'; % initialize the particles
 % map=smoothMap(map,1,[3,3]);
-X=X*res;
+
+
+
+X(1:2,:)=X(1:2,:)*res;
 W=1/N*ones(N,1); % initialize the weights to all 1/(numparticles)
 
 if ~exist('skip','var')
@@ -96,7 +99,7 @@ drawLaserHits(Xmean, 25, hits, 1/res);
 %             if mod(count,resamplestep)==0 % every so often, resample
 %             tmp = 1/sum(W.^2)
 %             if tmp < 20
-            if (stdW > 1e-4)
+            if (stdW > .03)
                 [X,W]=resample(X',W);
                 X=X';
             end
