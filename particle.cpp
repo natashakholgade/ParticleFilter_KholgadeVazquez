@@ -51,7 +51,7 @@ ParticleSet::getIdealLaserMeasurements(const double* map, int width, int height,
         
         for (int b=0; b<beams; b++)
         {
-            beamAngle = theta - angles[b] + M_PI/2;
+            beamAngle = theta + angles[b] - M_PI/2;
             orientation = Vector2D(cos(beamAngle),sin(beamAngle));
 //             beamEnd = laserPosition + 
 //                         Vector2D(cos(beamAngle),sin(beamAngle))*maxRange;
