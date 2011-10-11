@@ -9,10 +9,11 @@ function drawRobot(x, y, theta, radius)
 robot = circle([x y], radius, 180);
 hold on; axis equal;
 % draw robot
-plot(robot(1,:), robot(2,:), 'r-');
+plot(robot(1,:), robot(2,:), 'g-');
 % draw orientation lines
-plot([x, cos(theta-pi/4)*radius + x], [y, sin(theta-pi/4)*radius + y], 'r-');
-plot([x, cos(theta+pi/4)*radius + x], [y, sin(theta+pi/4)*radius + y], 'r-');
+plot([x, cos(theta)*radius*1.5 + x], [y, sin(theta)*radius*1.5 + y], 'g-');
+% plot([x, cos(theta-pi/4)*radius + x], [y, sin(theta-pi/4)*radius + y], 'g-');
+% plot([x, cos(theta+pi/4)*radius + x], [y, sin(theta+pi/4)*radius + y], 'g-');
 
 % Construct matrix of circular points
 % c = circle(center, radius)

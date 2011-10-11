@@ -7,7 +7,10 @@ count=0;
 [~,map]=loadmap(map);
 X=gen_particles(map,N)'; % initialize the particles
 % map=smoothMap(map,1,[3,3]);
-X=X*res;
+
+
+
+X(1:2,:)=X(1:2,:)*res;
 W=1/N*ones(N,1); % initialize the weights to all 1/(numparticles)
 
 if ~exist('skip','var')
@@ -21,7 +24,12 @@ end
 skipcount=0;
 
 sumW = 1;
-drawingMap = map.*0.3;
+drawingMap = map;
+drawingMap(map == 2) = 0;
+drawingMap = drawingMap.*0.2;
+
+
+particlesCovariance = cov(X(1:2,:)');
 
 done=false;
 while ~done
@@ -70,25 +78,29 @@ while ~done
                 display(sumW);
                 display(stdW);
             end
+        
             
-            if mod(count,6)==0 
+            if mod(count,10)==0 
                 imshow(drawingMap); hold on;
-            scatter(X(1,:)/res,X(2,:)/res,3,'r'); 
-            
-            Xmean=X*W;
-            
-            hits = beamHit(Xmean, L, stride, 25);
-% convert hits from Bx1x2 to Bx2
-hits = squeeze(hits);
-% draw 
-%if drawmap; vismap(map); end
-%hold on;
-drawLaserHits(Xmean, 25, hits, 1/res);
-            
-            hold off;
-            title(sprintf('Frame %d', count));
-            drawnow;
-            saveas(gca,sprintf('%s/%04d.png',dirname,count));
+                scatter(X(1,:)/res,X(2,:)/res,2.5,'b'); 
+
+
+                % check for particles' convergence and draw robot
+                particlesCovariance = cov(X(1:2,:)'./10);
+                if (max(diag(particlesCovariance)) < 1000)
+
+                    Xmean=X*W;
+                    hits = beamHit(Xmean, L, stride, 25);
+                    % convert hits from Bx1x2 to Bx2
+                    hits = squeeze(hits);
+                    drawLaserHits(Xmean, 25, hits, 1/res);
+
+                end
+
+                hold off;
+                title(sprintf('Frame %d', count));
+                drawnow;
+                saveas(gca,sprintf('%s/%04d.png',dirname,count));
             
             end
                 
@@ -96,7 +108,7 @@ drawLaserHits(Xmean, 25, hits, 1/res);
 %             if mod(count,resamplestep)==0 % every so often, resample
 %             tmp = 1/sum(W.^2)
 %             if tmp < 20
-            if (stdW > 1e-4)
+            if (stdW > .03)
                 [X,W]=resample(X',W);
                 X=X';
             end
