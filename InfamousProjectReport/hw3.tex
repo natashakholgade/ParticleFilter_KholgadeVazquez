@@ -8,6 +8,7 @@
 \usepackage{url}
 \usepackage{graphicx}
 \usepackage{color}
+\usepackage{subfigure}
 % Make URL click-able
 \usepackage{hyperref}
 
@@ -32,7 +33,13 @@ odometry measurements as principal input to the robot's motion model,
 (3) uses laser ray casting to assess particle quality with respect to
 real world laser measurements, (4) resamples
 the particles when the weight variance
-rises about a threshold. 
+rises about a threshold. Particle filters are great for situations in
+which we have sensor and motion data from a known map but no ground
+truth. We observe good localization performance with a choice of $800-1000$
+particles and noise parameters of $\alpha_1=.03, \alpha_2=.03,
+\alpha_3=.01, \alpha_4=.01$ for the motion model. As our
+videos demonstrate, our implementation worked successfully on the first and 
+second data logs.
 % NOTE: We did not test in all provided data sets.. only log 1 and 2...
 %% Particle filters are great for situations in
 %% which we have sensor and motion data from a known map but no ground
@@ -99,7 +106,7 @@ itself to the final orientation (Figure \ref{fig3}).
 \centering
 \includegraphics[width=.3\linewidth]{motionmodel}
 \caption[.]{Motion model for a robot moving from configuration
-  $(\tilde{x},\tilde{y},\tilde{\theta}$ to
+  $(\tilde{x},\tilde{y},\tilde{\theta})$ to
   $(\tilde{x}',\tilde{y}',\tilde{\theta}')$}
 \label{fig3}
 \end{figure}
@@ -164,7 +171,7 @@ measurement $L = [l_0\ \ldots\ l_{179}]$. We computed where the laser beams fall
  in the map as follows:
 \begin{equation*}
 \big( \forall_{i}\ |\ i \in \mathbb{N}^0 \wedge 0 \leq i < 180 \ |
-\ rad = i\pi/180 \ \wedge\ map\_pos_i = [x + l_i\cos(rad),\ y + l_i\sin(rad)]\big)
+\alpha = i\pi/180 \ \wedge\ map\_pos_i = [x + l_i\cos(\alpha),\ y + l_i\sin(\alpha)]\big)
 \end{equation*}
 and then we extracted the occupancy probabilities for all these
 places:
@@ -202,7 +209,7 @@ After several tests, we could not get our second approach to work.
 Particles did not remain in the unoccupied space of the map, even
 after ignoring laser beams with values outside the expected
 range. The maximum expected value for a laser measurement was
-  always set to $8000$cm, while the minimum varied from $0$ to
+  always set to $8000$ cm, while the minimum varied from $0$ to
   $50$.\\
 
 After limited success, we elected to implement a ray tracing based
@@ -301,7 +308,7 @@ measurement noise we allow some variation in the readings using
 $\sigma_{beam}$. Finally, we sum all probabilities and exponentiate.  In
 other words,
 \begin{equation*}
-w = exp(sum(\mathcal{N}(L - \hat{L}, 0, \sigma_{beam})))
+w = exp(\sum_i(\mathcal{N}(L_i - \hat{L_i}; 0, \sigma_{beam})))
 \end{equation*}
 
 % Explained this with more details above.. the subsampling is
@@ -418,25 +425,36 @@ It also generates the map and sensor
 
 \section{Results}
 
-[ADD PICTURE FRAME FROM ONE OF THE FINAL SUCCESSFUL VIDEOS]\\
+\begin{figure}[ht]
+\centering
+\subfigure[]{
+\includegraphics[scale=.15]{start.png}
+\label{fig:subfig1}
+}
+\subfigure[]{
+\includegraphics[scale=.15]{mid.png}
+\label{fig:subfig2}
+}
+\subfigure[]{
+\includegraphics[scale=.15]{end.png}
+\label{fig:subfig3}
+}
+\label{fig:subfigureExample}
+\caption[Optional caption for list of figures]{Plots of the robot's location for `robotdata2.log' at frames \subref{fig:subfig1} 270 (few frames into the start of the route), \subref{fig:subfig2} 3670 (midway), and \subref{fig:subfig3} 5360 (final frame)}
+\end{figure}
  
-THe accompanying video show how our implementation worked. The
-similarity between some places of the map difficultate convergence in
-some cases, and parameters were adjusted to try to overcome these
-situations.
+As the accompanying videos demonstrate, our implementation worked successfully on the logs `robotdata1.log' and `robotdata2.log'.  Note: to execute our accompanying code, use the script: 
+\begin{verbatim}runParticleFilter\end{verbatim}
 
-% NOTE: Needs to be updated!
-Note: to execute our accompanying code, use the function: 
-$$runParticleFilter(map, dataLogName, desiredNumberParticles)$$
+Before using the code, execute at the command prompt
+\begin{verbatim}./compile.sh\end{verbatim}
 
+which is located in the same directory (change the include path in the 'compile.sh' script to point to your version of MATLAB), and then call
+\begin{verbatim}mex CXX=g++ -lm particle.o vector2D.o raycast.cpp -output raycast\end{verbatim}
 
-As the movies show, our particle filter algorithm can converge to the
-correct global position is less than 200 iterations. For
-\textit{robotdata1} we used 800 particles, which we depict as blue
-dots. When the filter converges, we plot an oriented circle with
-triangle depicting laser location, and use its pose to transform the
-filtered laser log into red beams in world coordinates. When the
-filter works properly, the laser readings align with map obstacles.
+before running the particle filter.\\
+
+As the movies show, our particle filter algorithm converges to the correct global position within around $200$ iterations. We depict the particles as blue dots. For the highest likelihood particle,  we plot an oriented circle with triangle depicting laser location and use its pose to transform the filtered laser data into red beams in the world coordinates. For the first data log, we used $1000$ particles, and for the second data log, we used $800$ particles. We found that noise parameters $\alpha_1=.03, \alpha_2=.03, \alpha_3=.02, \alpha_4=.02$ worked best to produce the desired results.
 
 \section*{References}
 
