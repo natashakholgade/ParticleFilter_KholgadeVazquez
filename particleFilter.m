@@ -1,4 +1,4 @@
-function [X,W]=particleFilter(logfile,map,N,alphas,res,stride,minT,maxT,skip,dirname)
+function particleFilter(logfile,map,N,alphas,res,stride,minT,maxT,skip,dirname,stdWThreshold)
 
 fid=fopen(logfile);
 
@@ -87,7 +87,7 @@ while ~done
 
                 % check for particles' convergence and draw robot
                 particlesCovariance = cov(X(1:2,:)'./10);
-                if (max(diag(particlesCovariance)) < 1000)
+                if (max(diag(particlesCovariance)) < 1200)
 
                     Xmean=X*W;
                     hits = beamHit(Xmean, L, stride, 25);
@@ -98,7 +98,8 @@ while ~done
                 end
 
                 hold off;
-                title(sprintf('Frame %d', count));
+                title(sprintf('Frame %d (N = %d, stdW = %e)', count, N, stdW));
+                axis([0 800 0 800]);
                 drawnow;
                 saveas(gca,sprintf('%s/%04d.png',dirname,count));
             
@@ -108,10 +109,15 @@ while ~done
 %             if mod(count,resamplestep)==0 % every so often, resample
 %             tmp = 1/sum(W.^2)
 %             if tmp < 20
-            if (stdW > .03)
+
+            if (stdW > stdWThreshold)
                 [X,W]=resample(X',W);
                 X=X';
             end
+            %if (count==10000 && max(diag(particlesCovariance)) > 1200)
+             %   done=true;
+            %end
+            
         skipcount=0;
         end
     end
