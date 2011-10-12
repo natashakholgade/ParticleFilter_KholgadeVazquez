@@ -25,7 +25,7 @@
 
 \section{Introduction}
 
-In this assignment, we address the problem of localizing a lost robot within a known map, given its odometry and laser rangefinder data. We implement a particle filter that (1) initializes N particles, (2) uses odometry data to predict the motion model with guassian noise, (3) uses laser ray casting to assess particle quality based on return probabilities, (4) resamples the particle locations using their weights when the weight variance rises about a threshold. Particle filters are great for situations in which we have sensor and motion data from a known map but no ground truth. We observe good localization performance with a choice of $200$ particles and noise parameters of $\alpha_1=.03, \alpha_2=.03, \alpha_3=.01, \alpha_4=.01$ for the motion model. As the accompanying videos demonstrate, our implementation worked successfully on all of the provided data sets.  
+In this assignment, we address the problem of localizing a lost robot within a known map, given its odometry and laser rangefinder data. We implement a particle filter that (1) initializes N particles, (2) uses odometry data to predict the motion model with gaussian noise, (3) uses laser ray casting to assess particle quality based on return probabilities, (4) resamples the particle locations using their weights when the weight variance rises about a threshold. Particle filters are great for situations in which we have sensor and motion data from a known map but no ground truth. We observe good localization performance with a choice of $800$ particles and noise parameters of $\alpha_1=.03, \alpha_2=.03, \alpha_3=.01, \alpha_4=.01$ for the motion model. As the accompanying videos demonstrate, our implementation worked successfully on all of the provided data sets.  
 
 \section{Implementation}
 
@@ -33,7 +33,7 @@ We implement our entire system in MATLAB: the ray casting algorithm is implement
 
 \subsection{Particle Initialization}
 
-Given the dataset depicts a robot traveling through a building, we can assume that the robot was always inside either a room or the hallway.  Thus, we generate our initial samples as a uniform distribution over all pixels that are known but unoccupied with a probability of one (see Fig. \ref{fig1})).  In the next section we use similar reasoning to infer the benefits of discarding (i.e. assign a zero weight to) any particles that go outside the building during the motion modeling.
+Given that the dataset depicts a robot traveling through a building, we can assume that the robot was always inside either a room or the hallway.  Thus, we generate our initial samples as a uniform distribution over all pixels that are known but unoccupied with a probability of one (see Fig. \ref{fig1})).  In the next section we use similar reasoning to infer the benefits of discarding (i.e. assign a zero weight to) any particles that go outside the building during the motion modeling.
 
 \begin{figure}[h!tbp]
 \centering
@@ -149,8 +149,9 @@ We do not resample the particles at explicit timestep, but rather track the over
 Our particle filter code consists of the following:
 
 \begin{verbatim}Initialization:
-_ Generate samples using a uniform distribution over the valid positions in the map and all
-_ possible headings. While there is still data:_ If weights below threshold:___ 1. Resample particles___ 2. Set all particle weights to 1/N_ If next reading is Odometry:___ 1. Use the motion model to predict the next particle location.___ 2. Throw out any particle that goes off the map._ If next reading is Laser data:___ 1. Use the motion model to forward simulate where each particle would be at the time 
+_ 1. Generate N particles using a uniform distribution over the valid positions in the map and all
+_ possible headings. 
+_ 2. Smooth our map by convolving it with a gaussian.While there is still data:_ If weights variance above threshold:___ 1. Resample particles___ 2. Set new particle weights to 1/N_ If next reading is Odometry:___ 1. Use the motion model to predict the next particle location.___ 2. Throw out any particle that goes off the map._ If next reading is Laser data:___ 1. Use the motion model to forward simulate where each particle would be at the time 
 ___ of the scan.___ 2. Filter the laser data as described above.___ 3. Project the sensor data into the world using the particle’s position and heading and 	
 ___ use the likelihood field to compute a weight for each particle.
 ___ 4. Sample a new batch of particles using the distribution of the weights to sample from 	
