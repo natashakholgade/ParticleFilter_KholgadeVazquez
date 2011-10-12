@@ -446,10 +446,10 @@ It also generates the map and sensor
 As the accompanying videos demonstrate, our implementation worked successfully on the logs `robotdata1.log' and `robotdata2.log'.  Note: to execute our accompanying code, use the script: 
 \begin{verbatim}runParticleFilter\end{verbatim}
 
-To use the code, it will be necessary to execute
+Before using the code, execute at the command prompt
 \begin{verbatim}./compile.sh\end{verbatim}
 
-in the same directory, and then call
+which is located in the same directory (change the include path in the 'compile.sh' script to point to your version of MATLAB), and then call
 \begin{verbatim}mex CXX=g++ -lm particle.o vector2D.o raycast.cpp -output raycast\end{verbatim}
 
 before running the particle filter.\\
