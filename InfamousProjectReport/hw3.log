@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-This is pdfTeX, Version 3.1415926-1.40.11 (TeX Live 2010) (format=pdflatex 2010.7.21)  12 OCT 2011 15:25
-=======
-This is pdfTeX, Version 3.1415926-1.40.11 (TeX Live 2010) (format=pdflatex 2010.7.21)  12 OCT 2011 15:30
->>>>>>> a421c4e5a4d5e416f5f892f5dbdf2c1cb47ed6d4
+This is pdfTeX, Version 3.1415926-1.40.11 (TeX Live 2010) (format=pdflatex 2010.7.21)  12 OCT 2011 16:26
 entering extended mode
  \write18 enabled.
  file:line:error style messages enabled.
@@ -516,10 +512,6 @@ Package atveryend Info: Empty hook `AfterLastShipout' on input line 463.
 Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 463.
 Package rerunfilecheck Info: File `hw3.out' has not changed.
 (rerunfilecheck)             Checksum: B26EFAFF35200B1A95A2C8B104ECCE63;1130.
-
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
  6266 strings out of 493747
@@ -528,7 +520,7 @@ Here is how much of TeX's memory you used:
  9406 multiletter control sequences out of 15000+200000
  12017 words of font info for 47 fonts, out of 3000000 for 9000
  714 hyphenation exceptions out of 8191
- 31i,11n,32p,605b,436s stack positions out of 5000i,500n,10000p,200000b,50000s
+ 31i,11n,32p,705b,436s stack positions out of 5000i,500n,10000p,200000b,50000s
 </usr/local/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb
 ></usr/local/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb>
 </usr/local/texlive/2010/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
@@ -547,11 +539,7 @@ texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></usr/local/texlive/2010/te
 xmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb></usr/local/texlive/2010/tex
 mf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/2010/texm
 f-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb>
-<<<<<<< HEAD
-Output written on hw3.pdf (7 pages, 1309935 bytes).
-=======
-Output written on hw3.pdf (7 pages, 1310555 bytes).
->>>>>>> a421c4e5a4d5e416f5f892f5dbdf2c1cb47ed6d4
+Output written on hw3.pdf (7 pages, 1311062 bytes).
 PDF statistics:
  315 PDF objects out of 1000 (max. 8388607)
  260 compressed objects within 3 object streams
