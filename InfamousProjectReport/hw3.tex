@@ -362,7 +362,7 @@ our results. \\
 
 Once we were confident in the sensor model itself, integrating this
 step into the overall particle filtering functioning involved many
-iterations of parameter testing. Challenged we faced were choosing how
+iterations of parameter testing. Challenges we faced were choosing how
 often to resample (discussed in the next section), evaluating $\alpha$
 values to fit the sensor model, and matching up coordinate systems
 across the code of the various project contributors.
@@ -391,7 +391,7 @@ all weights.
 We do not resample the particles at explicit timestep, but rather
 track the overall variance in the weights and only perform resampling
 when this number has surpassed a certain threshold. We
-experimentally determining a good variance threshold by tracking how
+experimentally determine a good variance threshold by tracking how
 long it took unlikely particles or particle clusters to die out, while
 maintaining enough diversity in the particle distribution to allow
 reliable convergence. \\
@@ -454,7 +454,7 @@ which is located in the same directory (change the include path in the 'compile.
 
 before running the particle filter.\\
 
-As the movies show, our particle filter algorithm converges to the correct global position within around $200$ iterations. We depict the particles as blue dots. For the highest likelihood particle,  we plot an oriented circle with triangle depicting laser location and use its pose to transform the filtered laser data into red beams in the world coordinates. For the first data log, we used $1000$ particles, and for the second data log, we used $800$ particles. We found that noise parameters $\alpha_1=.03, \alpha_2=.03, \alpha_3=.02, \alpha_4=.02$ worked best to produce the desired results.
+As the movies show, our particle filter algorithm converges to the correct global position within around $200$ iterations. We depict the particles as blue dots. For the highest likelihood particle,  we plot an oriented circle with triangle depicting laser location and use its pose to transform the filtered laser data into red beams in the world coordinates. For the first data log, we used $1000$ particles, and for the second data log, we used $800$ particles. We found that noise parameters $\alpha_1=.03, \alpha_2=.03, \alpha_3=.02, \alpha_4=.02$, and a resampling threshold of $2.5 - 3.5 \times 10^{-5}$ for the standard deviation of the weights worked best to produce the desired results.
 
 \section*{References}
 
